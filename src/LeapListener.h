@@ -30,6 +30,10 @@ public:
 	Leap::Vector AcqurePosition()const;
 	float AcqureFingerDistance01()const;
 	float AcqureFingerDistance02()const;
+	// LZ 20200322
+	Leap::Vector AcqureF1() const;
+	Leap::Vector AcqureF2() const;
+	Leap::Vector AcqureF3() const;
 private:
 	Leap::Vector position;
 	Leap::Vector normal;

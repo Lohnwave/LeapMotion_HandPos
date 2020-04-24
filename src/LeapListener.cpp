@@ -1,9 +1,10 @@
 /******************************************************************************\
-* Copyright (C) 2019 . 江西省智能信息系统重点实验室, All rights reserved.		*
-* Version: 2.0																	*
-* Last Revised: 2019-06-27														*
+* Copyright (C) 2020 . 江西省智能信息系统重点实验室, All rights reserved.		*
+* Version: 3.0																	*
+* Last Revised: 2020-03-22														*
 * Editor: Luozu																	*
 * Leapmotion监听类实现：左手采集位姿、右手采集手指抓握闭合						*
+* Update: get F1 F2 F3															*
 * SDK Vision： 3.2.1															*
 \******************************************************************************/
 #include "LeapListener.h"
@@ -14,7 +15,7 @@ Vector SampleListener::AcqureNormal()const {
 Vector SampleListener::AcqureDirection()const {
 	return direction;
 }
-Vector SampleListener::AcqurePosition()const {
+Vector SampleListener::AcqurePosition()const { // get Plam Position
 	return position;
 }
 float SampleListener::AcqureFingerDistance01()const {
@@ -22,6 +23,16 @@ float SampleListener::AcqureFingerDistance01()const {
 }
 float SampleListener::AcqureFingerDistance02()const {
 	return finger_distance_point02;
+}
+// LZ 20200322
+Leap::Vector SampleListener::AcqureF1() const { // get index finger
+	return finger1_point;
+}
+Leap::Vector SampleListener::AcqureF2() const { // get middle finger
+	return finger2_point;
+}
+Leap::Vector SampleListener::AcqureF3() const { // get Thumb finger
+	return finger0_point;
 }
 float SampleListener::getCartesianDistance(const Vector&fingerX_point, const Vector&fingerY_point) {
 	float Distance;
@@ -51,7 +62,7 @@ void SampleListener::onFrame(const Controller& controller) {
 		bool isfinger = fingers.isEmpty() ? false : true;
 		if (true == isfinger)
 		{
-			if (handType == "Right hand") {
+			if (handType == "Left hand") {
 				FingerList::const_iterator fp = fingers.begin();
 				const Finger finger0 = *fp;
 				const Finger finger1 = *(++fp);
